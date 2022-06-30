@@ -204,6 +204,11 @@
 		    <artifactId>org.eclipse.ecf.discovery</artifactId>
 		    <version>5.1.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.ecf</groupId>
+		    <artifactId>org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy</artifactId>
+		    <version>1.0.101</version>
+		</dependency>
 	</dependencies>
 
 	<modules>
