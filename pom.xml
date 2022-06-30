@@ -47,6 +47,12 @@
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
+		
+       <repository>
+           <id>ecf</id>
+           <layout>p2</layout>
+           <url>http://download.eclipse.org/rt/ecf/3.14.31/site.p2</url>
+       </repository>
 	</repositories>
 
 	<issueManagement>
@@ -183,7 +189,7 @@
 		  <version>2.3.1</version>
 		</dependency>
 		
-		<!-- DL Added Dependendencies to Fix Build -->
+		<!-- DL Added Dependendencies to Fix Build 
 		<dependency>
 		    <groupId>org.eclipse.ecf</groupId>
 		    <artifactId>org.eclipse.ecf.osgi.services.remoteserviceadmin</artifactId>
@@ -213,7 +219,7 @@
 		    <groupId>org.eclipse.ecf</groupId>
 		    <artifactId>org.eclipse.osgi.services.remoteserviceadmin</artifactId>
 		    <version>1.6.300</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 
 	<modules>
