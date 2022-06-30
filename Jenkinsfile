@@ -42,7 +42,7 @@ node {
 			
 			def mvnhome
 			if (isUnix()) {
-				mvnhome = tool 'Maven_3.6'
+				mvnhome = tool 'Maven_3.8'
 			} else {
 				// Due to a bug, use Maven 3.3 for Windows builds
 				mvnhome = tool 'Maven_3.3'
