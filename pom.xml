@@ -209,6 +209,11 @@
 		    <artifactId>org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy</artifactId>
 		    <version>1.0.101</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.eclipse.ecf</groupId>
+		    <artifactId>org.eclipse.osgi.services.remoteserviceadmin</artifactId>
+		    <version>1.6.300</version>
+		</dependency>
 	</dependencies>
 
 	<modules>
