@@ -48,8 +48,11 @@ public class CXFJaxRSServerContainer extends JaxRSServerContainer {
 		Bus bus = new ExtensionManagerBus(extensions, null, getClass().getClassLoader());
 		org.apache.cxf.transport.DestinationFactoryManager destinationFactoryManager = bus
 				.getExtension(org.apache.cxf.transport.DestinationFactoryManager.class);
+		org.apache.cxf.transport.ConduitInitiatorManager conduitInitiatorManager = bus
+				.getExtension(org.apache.cxf.transport.ConduitInitiatorManager.class);
 		for (String url : HTTPTransportFactory.DEFAULT_NAMESPACES) {
 			destinationFactoryManager.registerDestinationFactory(url, httpTransportFactory);
+			conduitInitiatorManager.registerConduitInitiator(url, httpTransportFactory);
 		}
 		return new DPCXFNonSpringJaxrsServlet(registration, (CXFServerConfigurable) configurable, destinationRegistry, bus);
 	}
