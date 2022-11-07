@@ -60,7 +60,7 @@ node {
 				
 				configFileProvider([configFile(fileId: 'P2_MAVEN_SETTING', variable: 'MAVEN_SETTINGS_XML')]) {
 					stage('Build') {
-						sh '$M2_HOME/bin/mvn -s $MAVEN_SETTINGS clean package deploy -f ./pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true'
+						sh '$M2_HOME/bin/mvn -s $MAVEN_SETTINGS_XML clean package deploy -f ./pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true'
 					}
 
 					stage('Record Results') {
