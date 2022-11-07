@@ -32,25 +32,17 @@ node {
 		
 		echo "Building: ${buildDisplayName}"
 		milestone()
-				
-		lock(resource: "jarxrs-${branchname}", inversePrecedence: true) {
+
+
 			milestone()
 			buildStarted = true;
 			
 			def workspaceFolder = "${env.WS_FOLDER}/jaxrs/${branchname}"
 			echo "Workspace Folder: ${workspaceFolder}"		
 			
-			def mvnhome
-			if (isUnix()) {
-				mvnhome = tool 'Maven_3.8'
-			} else {
-				// Due to a bug, use Maven 3.3 for Windows builds
-				mvnhome = tool 'Maven_3.3'
-			}
+			env.M2_HOME = tool 'Maven_3.8'
 			
 			def workingFolder
-					
-			ws("${workspaceFolder}") {
 			
 				stage('Checkout') {
 					checkout scm
@@ -66,20 +58,16 @@ node {
 
 				}
 				
-				withCredentials([string(credentialsId: 'KEY_PASS', variable: 'KEY'), string(credentialsId: 'STORE_PASS', variable: 'STORE'), string(credentialsId: 'PFX_PASS', variable: 'PFX')]) {
+				withCredentials([configFile(fileId: 'P2_MAVEN_SETTING', variable: 'MAVEN_SETTINGS')]) {
 					stage('Build') {
-						if (isUnix()) {
-							sh "cd ${workingFolder}\n${mvnhome}/bin/mvn clean package deploy -f ./pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true"
-						} else {
-							bat "cd ${workingFolder}\n${mvnhome}\\bin\\mvn clean package deploy -f .\\pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true"
-						}
+						sh '$M2_HOME/bin/mvn -s $MAVEN_SETTINGS clean package deploy -f ./pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true'
 					}
 
 					stage('Record Results') {
 						recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), taskScanner(highTags: 'FIXME', ignoreCase: true, includePattern: '*/src/**/*.java', lowTags: 'XXX', normalTags: 'TODO')]
 //						currentBuild.description="Version: ${buildVersion}"
 						junit allowEmptyResults: true, healthScaleFactor: 0.0, testResults: '**/generated/test-reports/**/*.xml'
-						jacoco classPattern: '**/target/classes, **/bin', exclusionPattern: '**/*Test*.class', sourcePattern: '*plugins/**/src,*/src'
+//						jacoco classPattern: '**/target/classes, **/bin', exclusionPattern: '**/*Test*.class', sourcePattern: '*plugins/**/src,*/src'
 //						step([$class: 'TeamUpdateWorkItemPostBuildAction'])
 					}
 
@@ -88,10 +76,9 @@ node {
 					}
 
 				}
-			
-			}
+
 			milestone()
-		}
+		
 	} catch (Exception ex) {
 		echo "Build State: ${currentBuild.result}"
 		
