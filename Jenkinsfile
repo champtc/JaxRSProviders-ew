@@ -58,7 +58,7 @@ node {
 
 				}
 				
-				withCredentials([configFile(fileId: 'P2_MAVEN_SETTING', variable: 'MAVEN_SETTINGS')]) {
+				configFileProvider([configFile(fileId: 'P2_MAVEN_SETTING', variable: 'MAVEN_SETTINGS_XML')]) {
 					stage('Build') {
 						sh '$M2_HOME/bin/mvn -s $MAVEN_SETTINGS clean package deploy -f ./pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true'
 					}
@@ -67,7 +67,7 @@ node {
 						recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), taskScanner(highTags: 'FIXME', ignoreCase: true, includePattern: '*/src/**/*.java', lowTags: 'XXX', normalTags: 'TODO')]
 //						currentBuild.description="Version: ${buildVersion}"
 						junit allowEmptyResults: true, healthScaleFactor: 0.0, testResults: '**/generated/test-reports/**/*.xml'
-//						jacoco classPattern: '**/target/classes, **/bin', exclusionPattern: '**/*Test*.class', sourcePattern: '*plugins/**/src,*/src'
+						jacoco classPattern: '**/target/classes, **/bin', exclusionPattern: '**/*Test*.class', sourcePattern: '*plugins/**/src,*/src'
 //						step([$class: 'TeamUpdateWorkItemPostBuildAction'])
 					}
 
