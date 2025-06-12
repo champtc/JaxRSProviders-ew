@@ -54,7 +54,15 @@
 		<system>Bugzilla</system>
 	</issueManagement>
 
-	<distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>JaxRSProviders-ew</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/champtc/JaxRSProviders-ew</url>
+        </repository>
+    </distributionManagement>
+
+	<!--<distributionManagement>
 	    <snapshotRepository>
 	        <id>maven-snapshots</id>
 	        <name>Nexus Snapshots</name>
@@ -65,7 +73,7 @@
 	        <name>Nexus Releases</name>
 	        <url>https://nexus.darklight.ai/repository/maven-releases/</url>
 	    </repository>
-	</distributionManagement>
+	</distributionManagement>-->
 
 	<properties>
 		<tycho-version>1.7.0</tycho-version>
