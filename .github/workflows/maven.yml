@@ -37,6 +37,6 @@ jobs:
         servers: '[{ "id": "JaxRSProviders-ew", "username": "champtc", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
 
     - name: Build with Maven
-      run: mvn -B deploy -f ./pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true
+      run: mvn -B clean deploy -f ./pom.xml -Dtycho.localArtifacts=ignore -Dmaven.test.skip=true
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
