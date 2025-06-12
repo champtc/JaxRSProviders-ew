@@ -12,7 +12,7 @@
 
   <name>ECF JaxRS Target Platform Definitions</name>
 
-  <build>
+  <!--<build>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -38,5 +38,5 @@
         </executions>
       </plugin>
     </plugins>
-  </build>
+  </build>-->
 </project>
